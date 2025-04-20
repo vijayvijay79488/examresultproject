@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.examresult.model.adminregister_model;
 import com.example.examresult.service.adminregisterservice;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/adminregister")
 public class adminregister {
@@ -40,10 +39,10 @@ public class adminregister {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, Object>> login(@Param("email") String email, @Param("password") String password) {
+	public ResponseEntity<Map<String, Object>> login(@RequestBody adminregister_model std) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		try {
-			String response = adminregisterservice.findByLogin(email, password);
+			String response = adminregisterservice.findByLogin(std.getEmail(), std.getPassword());
 			res.put("Status", HttpStatus.OK);
 			res.put("response", response);
 		} catch (Exception e) {
@@ -56,14 +55,42 @@ public class adminregister {
 	}
 
 	@PutMapping("/updatepassword")
-	public ResponseEntity<Map<String, Object>> updatepassword(@Param("email") String email,
-			@Param("password") String password) {
+	public ResponseEntity<Map<String, Object>> updatepassword(@RequestBody adminregister_model mod) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		try {
-			String response = adminregisterservice.updatepassword(email, password);
+			String response = adminregisterservice.updatepassword(mod.getEmail(), mod.getPassword());
 			res.put("status", HttpStatus.OK);
 			res.put("response", response);
+		} catch (Exception e) {
 
+			res.put("status", HttpStatus.BAD_REQUEST);
+			res.put("message", e.getMessage());
+		}
+		return new ResponseEntity<Map<String, Object>>(res, (HttpStatusCode) res.get("status"));
+	}
+
+//	@PostMapping("/upmail")
+//	public ResponseEntity<Map<String, Object>> upmail(@Param("email") String email) {
+//		Map<String, Object> res = new HashMap<String, Object>();
+//		try {
+//			String response = adminregisterservice;
+//			res.put("Status", HttpStatus.OK);
+//			res.put("response", response);
+//		} catch (Exception e) {
+//			res.put("Status", HttpStatus.BAD_REQUEST);
+//			res.put("message", e.getMessage());
+//		}
+////		}return new ResponseEntity<Map<String, Object>>(res, (HttpStatusCode) res.get("status"));
+//		return new ResponseEntity<Map<String, Object>>(res, (HttpStatusCode) res.get("Status"));
+////		return new ResponseEntity<Map<String,Object>>(res, res.getClass("status"));
+//	}
+	@PostMapping("/checkmail")
+	public ResponseEntity<Map<String, Object>> checkmain(@RequestBody adminregister_model add) {
+		Map<String, Object> res = new HashMap<String, Object>();
+		try {
+			String response = adminregisterservice.checkmail(add.getEmail());
+			res.put("status", HttpStatus.OK);
+			res.put("response", response);
 		} catch (Exception e) {
 			res.put("status", HttpStatus.BAD_REQUEST);
 			res.put("message", e.getMessage());

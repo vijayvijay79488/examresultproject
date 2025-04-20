@@ -34,7 +34,7 @@ public class adminregisterservice {
 		// TODO Auto-generated method stub
 		adminregister_model model = adminregisterrepo.findByEmail(email);
 		if (model == null) {
-			return "no id found";
+			throw new maunal("no id found");
 		} else {
 			if (password.equals(model.getPassword())) {
 				return "login succful";
@@ -46,6 +46,7 @@ public class adminregisterservice {
 	}
 
 	public String updatepassword(String email, String password) throws maunal {
+
 		adminregister_model checking = adminregisterrepo.findByEmail(email);
 		if (checking != null) {
 			checking.setPassword(password);
@@ -56,6 +57,20 @@ public class adminregisterservice {
 			return "updated succedslu";
 		}
 		throw new maunal("no mail id found");
+
+	}
+
+	public String checkmail(String email) throws manual {
+		String emaila = email;
+		adminregister_model mm = adminregisterrepo.findByEmail(email);
+
+		if (mm != null) {
+			return "mail found";
+		}
+		throw new manual("no main found");
+
+		// TODO Auto-generated method stub
+
 	}
 
 }
