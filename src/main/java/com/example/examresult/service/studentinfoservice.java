@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.examresult.model.studentregister;
 import com.example.examresult.model.studentresult_model;
-import com.example.examresult.repository.studentinforepo;
 import com.example.examresult.repository.studentregisterrepo;
 import com.example.examresult.repository.studentresultrepo;
 
@@ -116,8 +115,8 @@ public class studentinfoservice {
 		}
 	}
 
-	@Autowired
-	private studentinforepo repo;
+//	@Autowired
+//	private studentinforepo repo;
 	@Autowired
 	private studentresultrepo resultrepo;
 	@Autowired

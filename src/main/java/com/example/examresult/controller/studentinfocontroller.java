@@ -94,4 +94,5 @@ public class studentinfocontroller {
 		}
 		return new ResponseEntity<>(res, (HttpStatus) res.get("status"));
 	}
+
 }

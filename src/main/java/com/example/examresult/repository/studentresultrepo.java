@@ -19,4 +19,9 @@ public interface studentresultrepo extends JpaRepository<studentresult_model, St
 	List<studentresult_model> findStudentInfoByRegisteredAndDob(@RequestParam("registered") String registered,
 			@RequestParam("dob") String dob);
 
+//	@Query("SELECT DISTINCT s.semester FROM StudentInfo s " + "JOIN StudentRegister r ON s.registered = r.registered "
+//			+ "WHERE r.registered = :registered AND r.dob = :dob")
+//	List<String> findSemestersByRegisteredAndDob(@RequestParam("registered") String registered,
+//			@RequestParam("dob") String dob);
+
 }
