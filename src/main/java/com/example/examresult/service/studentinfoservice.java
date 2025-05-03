@@ -71,7 +71,7 @@ public class studentinfoservice {
 
 	}
 
-	public String putresultgrade(String get) {
+	static String putresultgrade(String get) {
 		int num = Integer.parseInt(get);
 		int grade = Integer.parseInt(get);
 		if (num <= 100 && num >= 91) {
@@ -90,7 +90,7 @@ public class studentinfoservice {
 
 	}
 
-	public String putgrade(String get) {
+	static String putgrade(String get) {
 		int num = Integer.parseInt(get);
 		String grade = get;
 		if (num <= 500 && num >= 451) {
@@ -107,7 +107,7 @@ public class studentinfoservice {
 
 	}
 
-	public String result(String get) {
+	static String result(String get) {
 		if (get.equals("A") || get.equals("B") || get.equals("C") || get.equals("D")) {
 			return "Pass";
 		} else {
@@ -121,6 +121,8 @@ public class studentinfoservice {
 	private studentresultrepo resultrepo;
 	@Autowired
 	private studentregisterrepo studentregister;
+	@Autowired
+	private com.example.examresult.repository.checkregandsem checkregandsem;
 
 	public String addstd(studentregister model) throws maunal {
 		// TODO Auto-generated method stub
@@ -145,12 +147,26 @@ public class studentinfoservice {
 		studentregister m1 = studentregister.findByregistered(oka.getRegistered());
 //		studentinfo_model a = repo.findByregistered(oka.getRegistered());
 //		List<studentresult_model om = (List<studentresult_model>) resultrepo.findByregistered(oka.getRegistered());
-
+		studentresult_model ku = checkregandsem.findByRegisteredAndSemester(oka.getRegistered(), oka.getSemester());
 		if (m1 == null) {
 			throw new maunal("student not registerd");
 		}
+		if (ku != null) {
+			throw new maunal("alreday semsester mark is there");
+		}
+		studentresult_model mmm = new studentresult_model();
+		mmm.setEnglish(putresultgrade(oka.getEnglish()));
+		mmm.setTamil(putresultgrade(oka.getTamil()));
+		mmm.setMaths(putresultgrade(oka.getMaths()));
+		mmm.setGrade(putgrade(oka.getGrade()));
+		mmm.setScience(putresultgrade(oka.getScience()));
+		mmm.setSocial(putresultgrade(oka.getSocial()));
+		mmm.setId(oka.getId());
+		mmm.setRegistered(oka.getRegistered());
+		mmm.setSemester(oka.getSemester());
+		mmm.setResult(oka.getResult());
 
-		resultrepo.save(oka);
+		resultrepo.save(mmm);
 		return "posted";
 	}
 

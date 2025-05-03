@@ -8,4 +8,6 @@ public interface studentregisterrepo extends JpaRepository<studentregister, Stri
 	studentregister findByregistered(String registered);
 
 	studentregister findByregisteredAndDob(String registered, String dob);
+
+//	studentregister findByregisteredAndSem(String registered, String sem);
 }

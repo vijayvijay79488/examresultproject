@@ -11,8 +11,9 @@ public class StudentInfo {
 	@EmbeddedId
 	private StudentInfoId id;
 
-	private int tamil;
-	private int english;
+	private String tamil;
+	private String english;
+//	private String result;
 
 	public StudentInfoId getId() {
 		return id;
@@ -22,43 +23,43 @@ public class StudentInfo {
 		this.id = id;
 	}
 
-	public int getTamil() {
+	public String getTamil() {
 		return tamil;
 	}
 
-	public void setTamil(int tamil) {
+	public void setTamil(String tamil) {
 		this.tamil = tamil;
 	}
 
-	public int getEnglish() {
+	public String getEnglish() {
 		return english;
 	}
 
-	public void setEnglish(int english) {
+	public void setEnglish(String english) {
 		this.english = english;
 	}
 
-	public int getMaths() {
+	public String getMaths() {
 		return maths;
 	}
 
-	public void setMaths(int maths) {
+	public void setMaths(String maths) {
 		this.maths = maths;
 	}
 
-	public int getScience() {
+	public String getScience() {
 		return science;
 	}
 
-	public void setScience(int science) {
+	public void setScience(String science) {
 		this.science = science;
 	}
 
-	public int getSocial() {
+	public String getSocial() {
 		return social;
 	}
 
-	public void setSocial(int social) {
+	public void setSocial(String social) {
 		this.social = social;
 	}
 
@@ -78,9 +79,9 @@ public class StudentInfo {
 		this.grade = grade;
 	}
 
-	private int maths;
-	private int science;
-	private int social;
+	private String maths;
+	private String science;
+	private String social;
 	private String result;
 	private String grade;
 
