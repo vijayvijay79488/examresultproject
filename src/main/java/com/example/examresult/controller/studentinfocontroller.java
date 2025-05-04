@@ -1,6 +1,7 @@
 package com.example.examresult.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.examresult.model.studentinfo_model;
 import com.example.examresult.model.studentregister;
 import com.example.examresult.model.studentresult_model;
 import com.example.examresult.service.ResultService;
@@ -93,6 +95,22 @@ public class studentinfocontroller {
 			res.put("message", e.getMessage());
 		}
 		return new ResponseEntity<>(res, (HttpStatus) res.get("status"));
+	}
+
+	@GetMapping("/addrevalution")
+	public ResponseEntity<Map<String, Object>> addrevalution(@RequestParam("registered") String registered) {
+		Map<String, Object> res = new HashMap<String, Object>();
+		try {
+			List<studentinfo_model> response = studentinfoservice.addrevalution(registered);
+			res.put("status", HttpStatus.OK);
+			res.put("response", response);
+
+		} catch (Exception e) {
+			res.put("status", HttpStatus.BAD_REQUEST);
+			res.put("message", e.getMessage());
+
+		}
+		return new ResponseEntity<Map<String, Object>>(res, (HttpStatusCode) res.get("status"));
 	}
 
 }

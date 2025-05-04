@@ -10,4 +10,6 @@ import com.example.examresult.model.StudentInfoId;
 public interface StudentInfoRepository extends JpaRepository<StudentInfo, StudentInfoId> {
 	Optional<StudentInfo> findById(StudentInfoId id);
 
+//	List<StudentInfoId> findByRegistered(String registered);
+
 }

@@ -6,8 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.examresult.model.studentinfo_model;
 import com.example.examresult.model.studentregister;
 import com.example.examresult.model.studentresult_model;
+import com.example.examresult.repository.revalutionrepo;
+import com.example.examresult.repository.studentinforepo;
 import com.example.examresult.repository.studentregisterrepo;
 import com.example.examresult.repository.studentresultrepo;
 
@@ -123,6 +126,10 @@ public class studentinfoservice {
 	private studentregisterrepo studentregister;
 	@Autowired
 	private com.example.examresult.repository.checkregandsem checkregandsem;
+	@Autowired
+	private revalutionrepo revalutionrepo;
+	@Autowired
+	private studentinforepo studentinforepo;
 
 	public String addstd(studentregister model) throws maunal {
 		// TODO Auto-generated method stub
@@ -191,5 +198,16 @@ public class studentinfoservice {
 			throw new maunal("crediantional misss match");
 		}
 		return one;
+	}
+
+	public List<studentinfo_model> addrevalution(String registered) throws maunal {
+		// TODO Auto-generated method stub
+		List<studentinfo_model> mmh = studentinforepo.findByRegistered(registered);
+
+		if (mmh != null) {
+
+			return mmh;
+		}
+		throw new maunal("no data found");
 	}
 }
