@@ -46,5 +46,9 @@ public class TopStudentDTO {
 		this.avatarUrl = avatarUrl;
 	}
 
+	public TopStudentDTO() {
+
+	}
+
 	// Getters and setters
 }
