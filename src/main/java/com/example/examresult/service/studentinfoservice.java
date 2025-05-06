@@ -161,19 +161,19 @@ public class studentinfoservice {
 		if (ku != null) {
 			throw new maunal("alreday semsester mark is there");
 		}
-		studentresult_model mmm = new studentresult_model();
-		mmm.setEnglish(putresultgrade(oka.getEnglish()));
-		mmm.setTamil(putresultgrade(oka.getTamil()));
-		mmm.setMaths(putresultgrade(oka.getMaths()));
-		mmm.setGrade(putgrade(oka.getGrade()));
-		mmm.setScience(putresultgrade(oka.getScience()));
-		mmm.setSocial(putresultgrade(oka.getSocial()));
-		mmm.setId(oka.getId());
-		mmm.setRegistered(oka.getRegistered());
-		mmm.setSemester(oka.getSemester());
-		mmm.setResult(oka.getResult());
+//		studentresult_model mmm = new studentresult_model();
+//		mmm.setEnglish(putresultgrade(oka.getEnglish()));
+//		mmm.setTamil(putresultgrade(oka.getTamil()));
+//		mmm.setMaths(putresultgrade(oka.getMaths()));
+//		mmm.setGrade(putgrade(oka.getGrade()));
+//		mmm.setScience(putresultgrade(oka.getScience()));
+//		mmm.setSocial(putresultgrade(oka.getSocial()));
+//		mmm.setId(oka.getId());
+//		mmm.setRegistered(oka.getRegistered());
+//		mmm.setSemester(oka.getSemester());
+//		mmm.setResult(oka.getResult());
 
-		resultrepo.save(mmm);
+		resultrepo.save(oka);
 		return "posted";
 	}
 

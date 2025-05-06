@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.examresult.dto.SemesterAnalyticsDTO;
 import com.example.examresult.model.studentinfo_model;
 import com.example.examresult.model.studentregister;
 import com.example.examresult.model.studentresult_model;
+import com.example.examresult.service.AnalyticsService;
 import com.example.examresult.service.ResultService;
 import com.example.examresult.service.studentinfoservice;
 
@@ -111,6 +113,14 @@ public class studentinfocontroller {
 
 		}
 		return new ResponseEntity<Map<String, Object>>(res, (HttpStatusCode) res.get("status"));
+	}
+
+	@Autowired
+	private AnalyticsService analyticsService;
+
+	@GetMapping("/all-semesters")
+	public List<SemesterAnalyticsDTO> getAllAnalytics() {
+		return analyticsService.getAllSemesterAnalytics();
 	}
 
 }
