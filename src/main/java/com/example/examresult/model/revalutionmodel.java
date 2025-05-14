@@ -25,10 +25,10 @@ public class revalutionmodel {
 	private int id;
 
 	@Column(nullable = false)
-	private int registered;
+	private String registered;
 
 	@Column(nullable = false)
-	private int semester;
+	private String semester;
 
 	@Temporal(TemporalType.DATE)
 	private Date date;
@@ -57,19 +57,19 @@ public class revalutionmodel {
 		this.id = id;
 	}
 
-	public int getRegistered() {
+	public String getRegistered() {
 		return registered;
 	}
 
-	public void setRegistered(int registered) {
+	public void setRegistered(String registered) {
 		this.registered = registered;
 	}
 
-	public int getSemester() {
+	public String getSemester() {
 		return semester;
 	}
 
-	public void setSemester(int semester) {
+	public void setSemester(String semester) {
 		this.semester = semester;
 	}
 

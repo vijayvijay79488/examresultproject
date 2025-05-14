@@ -10,4 +10,8 @@ import com.example.examresult.model.studentinfo_model;
 @Repository
 public interface studentinforepo extends JpaRepository<studentinfo_model, String> {
 	List<studentinfo_model> findByRegistered(String registered);
+
+//	studentinfo_model findByRegisteredAndSemester(String registered,String semester);
+
+	studentinfo_model findByRegisteredAndSemester(String registered, String semester);
 }
