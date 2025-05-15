@@ -2,6 +2,7 @@ package com.example.examresult.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,17 +82,28 @@ public class revalutionservice {
 //
 //	}
 	public StudentResponseDTO approvepost(String registered, String semester) {
-		StudentInfo student = repository.findById(new StudentInfoId(registered, semester)).orElseThrow();
+		StudentInfo student = repository.findById(new StudentInfoId(registered, semester))
+				.orElseThrow(() -> new RuntimeException("Student not found"));
+
+		// Fetch revaluation record for the student
+		Optional<studentrevalutionRecords> revalRecordOpt = repos.findFirstByRegisteredAndSemester(registered,
+				semester);
+
+		// Get subjects requested for revaluation
+		List<String> revalSubjects = revalRecordOpt.map(studentrevalutionRecords::getSubject).orElse(List.of());
 
 		List<SubjectDTO> subjects = new ArrayList<>();
-		subjects.add(new SubjectDTO("Tamil", Integer.parseInt(student.getTamil()), false));
-		subjects.add(new SubjectDTO("English", Integer.parseInt(student.getEnglish()), true));
-		subjects.add(new SubjectDTO("Mathematics", Integer.parseInt(student.getMaths()), true));
-		subjects.add(new SubjectDTO("Science", Integer.parseInt(student.getScience()), false));
-		subjects.add(new SubjectDTO("Social Science", Integer.parseInt(student.getSocial()), false));
+		subjects.add(new SubjectDTO("Tamil", Integer.parseInt(student.getTamil()), revalSubjects.contains("Tamil")));
+		subjects.add(
+				new SubjectDTO("English", Integer.parseInt(student.getEnglish()), revalSubjects.contains("English")));
+		subjects.add(new SubjectDTO("Mathematics", Integer.parseInt(student.getMaths()),
+				revalSubjects.contains("Mathematics")));
+		subjects.add(
+				new SubjectDTO("Science", Integer.parseInt(student.getScience()), revalSubjects.contains("Science")));
+		subjects.add(new SubjectDTO("Social Science", Integer.parseInt(student.getSocial()),
+				revalSubjects.contains("Social Science")));
 
 		return new StudentResponseDTO(student.getId().getRegistered(), student.getId().getSemester(), subjects);
-
 	}
 
 	public String removedatainrevalition(String registered, String semester) throws maunal {
