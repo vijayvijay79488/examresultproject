@@ -173,7 +173,7 @@ public class studentinfoservice {
 		mmm.setSemester(oka.getSemester());
 		mmm.setResult(oka.getResult());
 
-		resultrepo.save(mmm);
+		resultrepo.save(oka);
 		return "posted";
 	}
 

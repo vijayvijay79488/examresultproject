@@ -80,6 +80,9 @@ public class revalutionservice {
 		if (to == null) {
 			throw new maunal("no data found");
 		}
+		List<studentrevalutionRecords> one = repos.findByRegisteredAndSemester(registered, semester);
+		one.get(0).setStatus("reject");
+		repos.save(one.get(0));
 		repo.delete(to);
 		return "successuly done";
 	}

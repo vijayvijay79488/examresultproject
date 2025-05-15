@@ -12,5 +12,7 @@ public interface studentrevalutionrecordsrepo extends JpaRepository<studentreval
 	List<studentrevalutionRecords> findByRegisteredAndSemester(String registered, String semester);
 
 	List<studentrevalutionRecords> findByRegistered(String registered);
+
+//	studentrevalutionRecords findByRegisteredAndSemesters(String registered, String semester);
 //	List<studentrevalutionRecords> fingByRegistered(String registered);
 }
