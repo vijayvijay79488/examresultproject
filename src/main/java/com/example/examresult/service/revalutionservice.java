@@ -1,13 +1,18 @@
 package com.example.examresult.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.examresult.dto.StudentResponseDTO;
+import com.example.examresult.dto.SubjectDTO;
+import com.example.examresult.model.StudentInfo;
+import com.example.examresult.model.StudentInfoId;
 import com.example.examresult.model.revalutionmodel;
-import com.example.examresult.model.studentinfo_model;
 import com.example.examresult.model.studentrevalutionRecords;
+import com.example.examresult.repository.StudentInfoRepository;
 import com.example.examresult.repository.revalutionrepo;
 import com.example.examresult.repository.studentrevalutionrecordsrepo;
 
@@ -25,6 +30,8 @@ public class revalutionservice {
 	private com.example.examresult.repository.studentinforepo studentinforepo;
 	@Autowired
 	private studentrevalutionrecordsrepo repos;
+	@Autowired
+	private StudentInfoRepository repository;
 
 	public String addrevalution(revalutionmodel std) throws maunal {
 //		revalutionmodel one = repo.findByRegisteredAndSemester(std.getRegistered(), std.getSemester());
@@ -59,18 +66,31 @@ public class revalutionservice {
 //		return null;
 	}
 
-	public studentinfo_model approvepost(String registered, String semester) {
-		// TODO Auto-generated method stub
-		studentinfo_model one = studentinforepo.findByRegisteredAndSemester(registered, semester);
-		revalutionmodel to = repo.findByRegisteredAndSemester(registered, semester);
-//		revalutionmodel jlkj = new revalutionmodel();
-//		jlkj = to;
-		if (to != null) {
-			to.setStatus("approve");
-			repo.save(to);
-		}
+//	public studentinfo_model approvepost(String registered, String semester) {
+//		// TODO Auto-generated method stub
+//		studentinfo_model one = studentinforepo.findByRegisteredAndSemester(registered, semester);
+//		revalutionmodel to = repo.findByRegisteredAndSemester(registered, semester);
+////		revalutionmodel jlkj = new revalutionmodel();
+////		jlkj = to;
+//		if (to != null) {
+//			to.setStatus("approve");
+//			repo.save(to);
+//		}
+//
+//		return one;
+//
+//	}
+	public StudentResponseDTO approvepost(String registered, String semester) {
+		StudentInfo student = repository.findById(new StudentInfoId(registered, semester)).orElseThrow();
 
-		return one;
+		List<SubjectDTO> subjects = new ArrayList<>();
+		subjects.add(new SubjectDTO("Tamil", Integer.parseInt(student.getTamil()), false));
+		subjects.add(new SubjectDTO("English", Integer.parseInt(student.getEnglish()), true));
+		subjects.add(new SubjectDTO("Mathematics", Integer.parseInt(student.getMaths()), true));
+		subjects.add(new SubjectDTO("Science", Integer.parseInt(student.getScience()), false));
+		subjects.add(new SubjectDTO("Social Science", Integer.parseInt(student.getSocial()), false));
+
+		return new StudentResponseDTO(student.getId().getRegistered(), student.getId().getSemester(), subjects);
 
 	}
 

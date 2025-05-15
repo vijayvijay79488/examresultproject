@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.examresult.dto.StudentResponseDTO;
 import com.example.examresult.model.revalutionmodel;
-import com.example.examresult.model.studentinfo_model;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -50,7 +50,7 @@ public class RevaluationController {
 			@Param("semester") String semester) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		try {
-			studentinfo_model response = revalutionservice.approvepost(registered, semester);
+			StudentResponseDTO response = revalutionservice.approvepost(registered, semester);
 			res.put("status", HttpStatus.OK);
 			res.put("response", response);
 		} catch (Exception e) {
