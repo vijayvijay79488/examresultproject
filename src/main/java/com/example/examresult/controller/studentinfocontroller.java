@@ -63,6 +63,21 @@ public class studentinfocontroller {
 		return new ResponseEntity<Map<String, Object>>(res, (HttpStatusCode) res.get("status"));
 	}
 
+	@PostMapping("/update")
+	public ResponseEntity<Map<String, Object>> updateresult(@RequestBody studentresult_model model) {
+		Map<String, Object> res = new HashMap<String, Object>();
+		try {
+			String response = studentinfoservice.update(model);
+			res.put("status", HttpStatus.OK);
+			res.put("response", response);
+		} catch (Exception e) {
+			res.put("status", HttpStatus.BAD_REQUEST);
+			res.put("message", e.getMessage());
+
+		}
+		return new ResponseEntity<Map<String, Object>>(res, (HttpStatusCode) res.get("status"));
+	}
+
 	@GetMapping("/viewresult")
 	public ResponseEntity<Map<String, Object>> viewresult(@RequestParam("registered") String registered,
 			@RequestParam("dob") String dob, @RequestParam("sem") String semester) {

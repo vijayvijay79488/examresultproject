@@ -119,4 +119,15 @@ public class revalutionservice {
 		return "successuly done";
 	}
 
+	public String removeafterpostresult(String registered, String semester) throws maunal {
+		// TODO Auto-generated method stub
+		revalutionmodel to = repo.findByRegisteredAndSemester(registered, semester);
+		if (to == null) {
+			throw new maunal("no data found");
+		}
+
+		repo.delete(to);
+		return "successuly done";
+	}
+
 }

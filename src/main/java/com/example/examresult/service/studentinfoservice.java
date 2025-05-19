@@ -130,6 +130,12 @@ public class studentinfoservice {
 	private revalutionrepo revalutionrepo;
 	@Autowired
 	private studentinforepo studentinforepo;
+	@Autowired
+	private com.example.examresult.repository.studentrevalutionrecordsrepo studentrevalutionrecordsrepo;
+	@Autowired
+	private studentrevalutionservice studentrevalutionservice;
+	@Autowired
+	private revalutionservice revalutionservice;
 
 	public String addstd(studentregister model) throws maunal {
 		// TODO Auto-generated method stub
@@ -162,18 +168,46 @@ public class studentinfoservice {
 			throw new maunal("alreday semsester mark is there");
 		}
 		studentresult_model mmm = new studentresult_model();
-		mmm.setEnglish(putresultgrade(oka.getEnglish()));
-		mmm.setTamil(putresultgrade(oka.getTamil()));
-		mmm.setMaths(putresultgrade(oka.getMaths()));
-		mmm.setGrade(putgrade(oka.getGrade()));
-		mmm.setScience(putresultgrade(oka.getScience()));
-		mmm.setSocial(putresultgrade(oka.getSocial()));
+		mmm.setEnglish(oka.getEnglish());
+		mmm.setTamil(oka.getTamil());
+		mmm.setMaths(oka.getMaths());
+		mmm.setGrade(oka.getGrade());
+		mmm.setScience(oka.getScience());
+		mmm.setSocial(oka.getSocial());
 		mmm.setId(oka.getId());
 		mmm.setRegistered(oka.getRegistered());
 		mmm.setSemester(oka.getSemester());
 		mmm.setResult(oka.getResult());
-
+//		
 		resultrepo.save(oka);
+		return "posted";
+	}
+
+	public String update(studentresult_model oka) throws maunal {
+//		studentregister m1 = studentregister.findByregistered(oka.getRegistered());
+//		studentinfo_model a = repo.findByregistered(oka.getRegistered());
+//		List<studentresult_model om = (List<studentresult_model>) resultrepo.findByregistered(oka.getRegistered());
+		studentresult_model ku = checkregandsem.findByRegisteredAndSemester(oka.getRegistered(), oka.getSemester());
+		System.out.println(ku.getId());
+//		if (m1 == null) {
+//			throw new maunal("student not registerd");
+//		}
+		ku.setId(ku.getId());
+		ku.setEnglish(oka.getEnglish());
+		ku.setTamil(oka.getTamil());
+		ku.setMaths(oka.getMaths());
+		ku.setGrade(oka.getGrade());
+		ku.setScience(oka.getScience());
+		ku.setSocial(oka.getSocial());
+		ku.setRegistered(oka.getRegistered());
+		ku.setSemester(oka.getSemester());
+		ku.setResult(oka.getResult());
+
+		resultrepo.save(ku);
+		revalutionservice.removedatainrevalition(oka.getRegistered(), oka.getSemester());
+//	Optional<studentrevalutionRecords> reponse = studentrevalutionrecordsrepo.findFirstByRegisteredAndSemester(oka.getRegistered(), oka.getSemester());
+		studentrevalutionservice.remove(oka.getRegistered(), oka.getSemester());
+
 		return "posted";
 	}
 
@@ -210,4 +244,9 @@ public class studentinfoservice {
 		}
 		throw new maunal("no data found");
 	}
+
+//	public String update(studentresult_model model) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
