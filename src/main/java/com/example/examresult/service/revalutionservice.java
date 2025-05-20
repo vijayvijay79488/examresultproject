@@ -37,7 +37,15 @@ public class revalutionservice {
 	public String addrevalution(revalutionmodel std) throws maunal {
 //		revalutionmodel one = repo.findByRegisteredAndSemester(std.getRegistered(), std.getSemester());
 		revalutionmodel one = repo.findByRegisteredAndSemester(std.getRegistered(), std.getSemester());
+		Optional<studentrevalutionRecords> get = repos.findFirstByRegisteredAndSemester(std.getRegistered(),
+				std.getSemester());
 		studentrevalutionRecords rev = new studentrevalutionRecords();
+
+//		
+//		studentrevalutionRecords onnnn = get.get();
+		if (!get.isEmpty()) {
+			throw new maunal("your alrady applied");
+		}
 //		rev.setRegistered(std.getRegistered());
 //		rev.setSemester(std.getSemester());
 //		rev.setSubject(std.getSubject());

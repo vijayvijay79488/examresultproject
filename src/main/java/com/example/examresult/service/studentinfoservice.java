@@ -48,7 +48,7 @@ public class studentinfoservice {
 		boolean regflag = false;
 
 		for (int i = 0; i <= one.length() - 1; i++) {
-			if (one.charAt(i) >= 48 && one.charAt(i) <= 57) {
+			if (one.charAt(i) >= 48 || one.charAt(i) <= 57) {
 				regflag = true;
 			} else {
 				regflag = false;
@@ -57,7 +57,7 @@ public class studentinfoservice {
 		}
 		if (name.length() >= 3) {
 			for (int i = 0; i <= name.length() - 1; i++) {
-				if (name.charAt(i) >= 97 && name.charAt(i) <= 122) {
+				if (name.charAt(i) >= 97 || name.charAt(i) <= 122) {
 					nameflag = true;
 				} else {
 					nameflag = false;

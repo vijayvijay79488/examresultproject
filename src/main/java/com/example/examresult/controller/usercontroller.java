@@ -11,10 +11,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.examresult.model.User;
+import com.example.examresult.model.selectsem;
 import com.example.examresult.service.UserService;
+
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -67,5 +72,14 @@ public class usercontroller {
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(message);
 		}
+	}
+
+	@PostMapping("/submit")
+	public ResponseEntity<String> submitExam(
+
+			@Parameter(description = "Select the semester", schema = @Schema(type = "Integer", allowableValues = { "1",
+					"TWO", "THREE" })) @RequestParam selectsem sem) {
+		// Your logic here
+		return ResponseEntity.ok("Exam submitted for semester: " + sem);
 	}
 }
